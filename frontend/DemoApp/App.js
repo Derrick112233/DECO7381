@@ -1,314 +1,364 @@
+import React,{Component} from 'react';
+import {useState} from 'react';
+import 'react-native-gesture-handler';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import 'react-native-gesture-handler';
-import React,{ useState } from 'react';
-import { Platform,Alert,TouchableOpacity,TextInput,Dimensions,Image,ImageBackground, Text, StyleSheet, View, ImageStore } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Text, StyleSheet, View, ImageBackground, Image,TouchableOpacity} from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 
 
-const windowWidth=Dimensions.get('window').width;
-const windowHeight=Dimensions.get('window').height;
 
-
-const styles = StyleSheet.create({
-  container: {
-  width:windowWidth,
-  height:windowHeight,
-  paddingRight:0,
-  paddingLeft:0,
-  left:0,
-  right:0,
-  marginLeft:0,
-  marginRight:0,
-   flex: 1,
-   flexDirection:"row",
-   top:30,
-   justifyContent:"center"
-  },
-  containerSecondContainer: {
-    flex:1,
-    flexDirection:"row",
-    resizeMode: "cover",
-    justifyContent:"center"
-  },
-  containerSecondContainerThirdContainer: {
-    flex:1,
-    flexDirection:"column",
-    resizeMode: "cover",
-    justifyContent:"center",
-    alignItems:"center",
-    position:"relative"
-  },
-  thirdContainerProfile: {
-    resizeMode: "cover",
-    position:"absolute",
-    height:windowHeight*0.23,
-    width:windowHeight*0.23,
-    top:windowHeight*0.1,
-  },
-  signIn:{
-    height:90,
-    width:90,
-    backgroundColor:'rgb(96,160,48)',
-    borderRadius:50,
-    justifyContent:"center",
-    alignItems:"center",
-    position:'absolute',
-    top:windowHeight*0.57,
-    borderColor:'rgb(164,202,99)',
-    borderWidth:4,
-    borderRadius:50
-  }
-});
-
-const styleOfTaskList = StyleSheet.create({
-  starLeft:{
-    paddingLeft:8,
-  }
-  
-});
-
-const TaskList = ({ route, navigation }) => {
-  return (
-    <View>
-    <ScrollView>
-    <View style={{marginTop:5,flexDirection:"column",width:windowWidth,height:windowHeight,alignItems:"center"}}>
-        <View style={{borderBottomColor:"rgba(141,192,56,0.2)",borderBottomWidth:1,flexDirection:'row',width:375,height:76,justifyContent:'center',alignItems:'center'}}>
-            <View style={{flexDirection:"column",width:120,height:27,backgroundColor:'',justifyContent:'center'}}>
-              <Text style={{fontWeight:"bold",fontSize:20,color:'black',textAlign:'center'}}>Tasks to Do</Text>
-            </View>
+ const Start =({route, navigation})=>{
+   /* 最开始的界面*/
+  return(
+    <View style = {styles.container}>
+      <ImageBackground source = {require('./assets/images/Background.png')} style = {styles.SecondContainer}>
+        <View style={{position:"absolute", left:84,top:63}}>
+          <Text style = {{fontSize:24, color:'rgb(19,95,49)',lineHeight:40, fontWeight:"500",fontFamily:'Roboto-Medium'}}> Welcome to</Text>
         </View>
-        <View style={{textAlign:"left",width:317,marginTop:20}}>
-          <Text style={{textAlign:"left",fontWeight:"bold"}}>This week</Text>
+        <View style = {{position:"absolute",left:77,top:106}}>
+          <Text style = {{fontSize:48,color:'rgb(19,95,49)',fontWeight:"600",fontFamily:'Quicksand-Bold'}}> EcoAssit</Text>
         </View>
-        <View style={{shadowRadius:15,shadowOpacity:0.5,shadowOffset:{width:0,height:5},shadowColor:"rgb(135,178,106)",backgroundColor:'#fff',marginTop:20,width:317,height:333,position:"relative",flexDirection:"column",alignItems:"center",borderColor:"rgb(255,255,255)",borderWidth:1,borderRadius:20}}>
-          <Image source={require('./assets/images/recycle.png')} style={{zIndex:100,position:"absolute",right:-3,top:-3}}/>
-              <View style={{height:60,justifyContent:"center",alignItems:"center"}}>
-                <Text style={{fontSize:20,textAlign:"center",fontWeight:"bold",color:"rgb(135,178,106)"}}>Some text here</Text>
-              </View>
-              <View style={{width:239,height:57,justifyContent:"center",alignItems:"center",}}>
-                <Text style={{textAlign:"left",width:280,overflow:"scroll"}}>Some text hereSome text here Some text here Some text here Some text here Some text hereSome text here</Text>
-              </View>
-              
-          <View style={{top:6,borderBottomColor:"rgba(141,192,56,0.2)",borderBottomWidth:1.5,width:280,height:1}}></View>
-
-              <View style={{backgroundColor:"",top:20,width:280,height:20,flexDirection:"row",justifyContent:"flex-start",}}>
-                <View style={{justifyContent:'center',width:70}}>
-                  <Text style={{color:"rgb(135,178,106)", fontWeight:"bold",fontSize:14}}>Difficulty</Text>
-                </View>
-                <View style={{left:5,flexDirection:"row",}}>
-                  <View style={styleOfTaskList.starLeft}>
-                    <Image source={require('./assets/images/Star11.png')}/>
-                  </View>
-                  <View style={styleOfTaskList.starLeft}>
-                    <Image source={require('./assets/images/Star11.png')}/>
-                  </View>
-                  <View style={styleOfTaskList.starLeft}>
-                    <Image source={require('./assets/images/Star11.png')}/>
-                  </View>
-                  <View style={styleOfTaskList.starLeft}>
-                    <Image source={require('./assets/images/Star8.png')}/>
-                  </View>
-                  <View style={styleOfTaskList.starLeft}>
-                    <Image source={require('./assets/images/Star8.png')}/>
-                  </View>
-                </View>
-              </View>
-
-              <View style={{backgroundColor:"",marginTop:20,width:280,height:20,flexDirection:"row",justifyContent:"flex-start"}}>
-                <View style={{justifyContent:'center',width:70}}>
-                  <Text style={{color:"rgb(135,178,106)", fontWeight:"bold",fontSize:14}}>Tools</Text>
-                </View>
-                <View style={{left:10,flexDirection:"row",alignItems:"center"}}>
-                  <Text style={{textAlign:"left"}}>A water box</Text>
-                </View>
-              </View>
-          <View style={{postion:"relative",marginTop:20,borderBottomColor:"rgba(141,192,56,0.2)",borderBottomWidth:1,width:280,height:1}}></View>
-          <View style={{setPassword:15,postion:"relative",marginTop:10,backgroundColor:"",width:280,height:90,flexDirection:"row",justifyContent:"flex-start",alignItems:"center"}}>
-            <View style={{marginLeft:5,height:65,width:64,backgroundColor:"gray",borderRadius:10}}><Image source={require('./assets/images/Star11.png')}/></View>
-            <View style={{marginLeft:5,height:65,width:64,backgroundColor:"gray",borderRadius:10}}><Image source={require('./assets/images/Star11.png')}/></View>
-            <View style={{marginLeft:5,height:65,width:64,backgroundColor:"gray",borderRadius:10}}><Image source={require('./assets/images/Star11.png')}/></View>
-            <View style={{marginLeft:5,height:65,width:64,backgroundColor:"gray",borderRadius:10}}><Image source={require('./assets/images/Star11.png')}/></View>
-          </View>    
-        </View>
-
-
-        <View style={{shadowRadius:15,shadowOpacity:0.5,shadowOffset:{width:0,height:5},shadowColor:"rgb(135,178,106)",backgroundColor:'#fff',marginTop:20,width:317,height:333,position:"relative",flexDirection:"column",alignItems:"center",borderColor:"rgb(255,255,255)",borderWidth:1,borderRadius:20}}>
-          <Image source={require('./assets/images/recycle.png')} style={{zIndex:100,position:"absolute",right:-3,top:-3}}/>
-              <View style={{height:60,justifyContent:"center",alignItems:"center"}}>
-                <Text style={{fontSize:20,textAlign:"center",fontWeight:"bold",color:"rgb(135,178,106)"}}>Some text here</Text>
-              </View>
-              <View style={{width:239,height:57,justifyContent:"center",alignItems:"center",}}>
-                <Text style={{textAlign:"left",width:280,overflow:"scroll"}}>Some text hereSome text here Some text here Some text here Some text here Some text hereSome text here</Text>
-              </View>
-              
-          <View style={{top:6,borderBottomColor:"rgba(141,192,56,0.2)",borderBottomWidth:1.5,width:280,height:1}}></View>
-
-              <View style={{backgroundColor:"",top:20,width:280,height:20,flexDirection:"row",justifyContent:"flex-start",}}>
-                <View style={{justifyContent:'center',width:70}}>
-                  <Text style={{color:"rgb(135,178,106)", fontWeight:"bold",fontSize:14}}>Difficulty</Text>
-                </View>
-                <View style={{left:5,flexDirection:"row",}}>
-                  <View style={styleOfTaskList.starLeft}>
-                    <Image source={require('./assets/images/Star11.png')}/>
-                  </View>
-                  <View style={styleOfTaskList.starLeft}>
-                    <Image source={require('./assets/images/Star11.png')}/>
-                  </View>
-                  <View style={styleOfTaskList.starLeft}>
-                    <Image source={require('./assets/images/Star11.png')}/>
-                  </View>
-                  <View style={styleOfTaskList.starLeft}>
-                    <Image source={require('./assets/images/Star8.png')}/>
-                  </View>
-                  <View style={styleOfTaskList.starLeft}>
-                    <Image source={require('./assets/images/Star8.png')}/>
-                  </View>
-                </View>
-              </View>
-
-              <View style={{backgroundColor:"",marginTop:20,width:280,height:20,flexDirection:"row",justifyContent:"flex-start"}}>
-                <View style={{justifyContent:'center',width:70}}>
-                  <Text style={{color:"rgb(135,178,106)", fontWeight:"bold",fontSize:14}}>Tools</Text>
-                </View>
-                <View style={{left:10,flexDirection:"row",alignItems:"center"}}>
-                  <Text style={{textAlign:"left"}}>A water box</Text>
-                </View>
-              </View>
-          <View style={{postion:"relative",marginTop:20,borderBottomColor:"rgba(141,192,56,0.2)",borderBottomWidth:1,width:280,height:1}}></View>
-          <View style={{setPassword:15,postion:"relative",marginTop:10,backgroundColor:"",width:280,height:90,flexDirection:"row",justifyContent:"flex-start",alignItems:"center"}}>
-            <View style={{marginLeft:5,height:65,width:64,backgroundColor:"gray",borderRadius:10}}><Image source={require('./assets/images/Star11.png')}/></View>
-            <View style={{marginLeft:5,height:65,width:64,backgroundColor:"gray",borderRadius:10}}><Image source={require('./assets/images/Star11.png')}/></View>
-            <View style={{marginLeft:5,height:65,width:64,backgroundColor:"gray",borderRadius:10}}><Image source={require('./assets/images/Star11.png')}/></View>
-            <View style={{marginLeft:5,height:65,width:64,backgroundColor:"gray",borderRadius:10}}><Image source={require('./assets/images/Star11.png')}/></View>
-          </View>    
-        </View>
-        
-    </View>
-    </ScrollView>
-      <Image source={require('./assets/images/Group400.png')} style={{position:'absolute',bottom:0,alignSelf:'flex-end'}}/>
-    </View>
-  );
-}
-
-
-
-
-const AfterLogin = ({ route, navigation }) => {
-  return (
-    <TouchableOpacity style={styles.container} onPress={() => {
-      /* 1. Navigate to the Details route with params */
-      navigation.navigate('TaskList');
-      }}>
-      <ImageBackground source={require('./assets/images/indexMainBackground.png')} style={styles.containerSecondContainer}>
-        <ImageBackground source={require('./assets/images/upperBackground.png')} style={styles.containerSecondContainerThirdContainer}>
-          <Image
-          style={styles.thirdContainerProfile}
-          source={require('./assets/images/profilePhoto.png')}
-          />
-          <View style={{width:0.8*windowWidth,height:windowHeight*0.2,overflow:'scroll',position:'absolute',top:windowHeight*0.5}}>
-            <Text style={{textAlign:'center',color:'rgb(19,95,49)',fontSize:windowHeight*0.03}}>
-            You have been saving the world for 35 days!
-            </Text>
-          </View>
-        </ImageBackground>
       </ImageBackground>
-    </TouchableOpacity>
-  );
-}
+      <ImageBackground source = {require("./assets/images/BackgroundLower.png")} style = {styles.thirdContainer}></ImageBackground>
+      <ImageBackground source = {require("./assets/images/Button.png")} style = {styles.Button}>
+        <View style ={{position:"absolute", top:40,left:28}}>
+          <Text style ={{fontSize:18,color:"rgb(255,255,255)",fontFamily:'Quicksand-Bold'}}>Log in</Text>
+        </View>
+      </ImageBackground>
+      <TouchableOpacity style ={{position:"absolute",left:122,top:390}} onPress ={()=> this.props.navigation.navigate('Register')}>
+        <View>
+          <Text style ={{fontSize:18,fontFamily:"Quicksand-Bold",color:"rgb(255,187,55)",textDecorationLine:"underline"}}>create account</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+    )
+};
 
-const Login = ({ route, navigation }) => {
+const Log = ({route,navigation})=> {
+  /*登陆界面*/
   const [username, setUsername] = useState('');
   const [password,setPassword] = useState('');
   const user={
     username: username,
     password: password,
   };
+  return(
+    <View style ={styles.container}>
+      <ImageBackground source ={require('./assets/images/BackgroundOther.png')} style = {styles.SecondContainer}>
+        <View style={{position:"absolute", left:84,top:63}}>
+          <Text style = {{fontSize:24, color:'rgb(19,95,49)',lineHeight:40, fontWeight:"500",fontFamily:'Roboto-Medium'}}> Welcome to</Text>
+        </View>
+        <View style = {{position:"absolute",left:77,top:106}}>
+          <Text style = {{fontSize:48,color:'rgb(19,95,49)',fontWeight:"600",fontFamily:'Quicksand-Bold'}}> EcoAssit</Text>
+        </View>
+        <View style ={{position:"absolute",left:123,top:216}}>
+          <Text style ={{fontFamily:"Quicksand-Bold",fontSize:16,color:"rgb(11,61,31)"}}>Account number</Text>
+          <TextInput 
+          style={{height: 19,width:117,position:'absolute',top:30,borderBottomColor:'black',borderBottomWidth:1}}
+          placeholder= "student number"
+          onChangeText={username => setUsername(username)}>
+          </TextInput>
+        </View>
+        <View style ={{position:"absolute",left:123,top:300}}>
+          <Text style ={{fontFamily:"Quicksand-Bold",fontSize:16,color:"rgb(11,61,31)"}}>Password</Text>
+          <TextInput 
+          style={{height: 19,width:117,position:'absolute',top:30,borderBottomColor:'black',borderBottomWidth:1}}
+          placeholder= "password"
+          onChangeText={password => setPassword(password)}>
+          </TextInput>
+        </View>
+        <ImageBackground source = {require("./assets/images/Button.png")} style = {{position:"absolute",top:398.6,left:148,width:78.9,height:78.9}}>
+        <View style ={{position:"absolute", top:30,left:20}}>
+          <Text style ={{fontSize:14,color:"rgb(255,255,255)",fontFamily:'Quicksand-Bold'}}>Log in</Text>
+        </View>
+        </ImageBackground>
+      </ImageBackground>
 
-  const submit=()=>{
-    fetch(
-      'http://localhost:8080/user/getUserByRequest',{
-        method:'POST',
-        headers:{
-          'Conten-type':'application/json;charset=UTF-8'
-        },
-        body: JSON.stringify(user)
-      }
-    ).then((response)=>response.json()).then(data=>{
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    </View>
+  )
+};
+
+const Register = ({route, navigation}) =>{
+  /*注册界面*/
+  const [username, setUsername] = useState('');
+  const[accountNumber,setAccountNumber] = useState('');
+  const [password,setPassword] = useState('');
+  const[ConfirmPassword,setConfirmPassword] = useState('');
+  const user={
+    username: username,
+    accountNumber:accountNumber,
+    password: password,
+    ConfirmPassword:ConfirmPassword,
   };
-  
-  return (
-    <View style={styles.container}>
-      <ImageBackground source={require('./assets/images/indexMainBackground.png')} style={styles.containerSecondContainer}>
-        <ImageBackground source={require('./assets/images/upperBackground.png')} style={styles.containerSecondContainerThirdContainer}>
-          <View style={{position:"absolute",left:0.2*windowWidth,top:0.15*windowHeight}}>
-            <Text style={{textAlign:"left",color:'rgb(19,95,49)',fontSize:windowHeight*0.03}}>Welcome to</Text>
-            <Text style={{textAlign:"left",color:'rgb(19,95,49)',fontSize:windowHeight*0.05,fontWeight:'bold'}}>EcoAssist</Text>
-          </View>
-          <View style={{position:"relative",bottom:0.15*windowHeight,right:0.2*windowWidth}}>
-            <Text style={{position:"relative",textAlign:"left",color:'rgb(19,95,49)',fontSize:windowHeight*0.03}}>Username
-            </Text>
-            <TextInput
-              style={{height: 40,width:180,position:'absolute',top:20,borderBottomColor:'black',borderBottomWidth:1}}
-              placeholder="Here to input ur username"
-              onChangeText={username => setUsername(username)}
-              // defaultValue={username}
-            /> 
-
-            <Text style={{position:"absolute",top:80,textAlign:"left",color:'rgb(19,95,49)',fontSize:windowHeight*0.03}}>Password
-            </Text>
-            <TextInput
-              style={{height: 40,width:180,position:'absolute',top:100}}
-              placeholder="Here to input ur password"
-              secureTextEntry={true}
-              onChangeText={password => setPassword(password)}
-              // defaultValue={password}
-            /> 
-          </View>
-
-          <TouchableOpacity style={styles.signIn} onPress={submit}>
-            <Text style={{bottom:5,textAlign:"center",color:'white',fontWeight:"bold"}}>Sign In</Text>
-          </TouchableOpacity>
-          {/*<View style={{position:"absolute",top:windowHeight*0.57,height:91,width:91,borderColor:'rgb(164,202,99)',borderWidth:3,borderRadius:50}}>
-          </View>*/}        
+  return(
+    <View style ={styles.container}>
+      <ImageBackground source ={require('./assets/images/BackgroundOther.png')} style = {styles.SecondContainer}>
+        <View style ={{position:"absolute",top:72,left:84}}>
+          <Text style ={{fontFamily:"Roboto-Medium",fontSize:24,lineHeight:40,color:'rgb(19,95,49)'}}>Welcome to</Text>
+        </View>
+        <View style ={{position:"absolute",top:101,left:84}}>
+          <Text style={{fontSize:36,fontFamily:"Quicksand-Bold",color:"rgb(19,95,49)"}}>EcoAssit</Text>
+        </View>
+        <View style={{position:"absolute",top:154,left:108}}>
+          <Text style ={{fontSize:16,fontFamily:"Quicksand-Bold",color:"rgb(11,61,31)"}}>User Name</Text>
+          <TextInput 
+          style={{height: 19,width:152,position:'absolute',top:30,borderBottomColor:'black',borderBottomWidth:1}}
+          placeholder= "less than four words"
+          onChangeText={username => setUsername(username)}>
+          </TextInput>
+        </View>
+        <View style ={{position:"absolute",top:219,left:107}}>
+          <Text style={{fontSize:16,fontFamily:"Quicksand-Bold",color:"rgb(11,61,31)"}}>Account Number</Text>
+          <TextInput 
+          style={{height: 19,width:152,position:'absolute',top:30,borderBottomColor:'black',borderBottomWidth:1}}
+          placeholder= "student number"
+          onChangeText={accountNumber => setAccountNumber(accountNumber)}>
+          </TextInput>
+        </View>
+        <View style ={{position:"absolute",top:284,left:107}}>
+          <Text style={{fontSize:16,fontFamily:"Quicksand-Bold",color:"rgb(11,61,31)"}}>Password</Text>
+          <TextInput 
+          style={{height: 19,width:152,position:'absolute',top:30,borderBottomColor:'black',borderBottomWidth:1}}
+          placeholder= "number and digit"
+          onChangeText={password=> setPassword(password)}>
+          </TextInput>
+        </View>
+        <View style ={{position:"absolute",top:349,left:107}}>
+          <Text style={{fontSize:16,fontFamily:"Quicksand-Bold",color:"rgb(11,61,31)"}}>Confirm Password</Text>
+          <TextInput 
+          style={{height: 19,width:152,position:'absolute',top:30,borderBottomColor:'black',borderBottomWidth:1}}
+          placeholder= "input password again"
+          onChangeText={ConfirmPassword=> setConfirmPassword(ConfirmPassword)}>
+          </TextInput>
+        </View>
+        <ImageBackground source = {require("./assets/images/Button.png")} style = {{position:"absolute",top:429.6,left:148,width:78.9,height:78.9}}>
+        <View style ={{position:"absolute", top:30,left:15}}>
+          <Text style ={{fontSize:14,color:"rgb(255,255,255)",fontFamily:'Quicksand-Bold'}}>Sign Up</Text>
+        </View>
         </ImageBackground>
       </ImageBackground>
     </View>
-  );
+  )
+};
+
+
+const MyProfile = ({route, navigation}) =>{
+  /*profile第一页*/
+  return(
+    <View style = {styles.container}> 
+      <View style = {{position:"absolute", top:28, left:129}}> 
+        <Text style = {{fontFamily:"Quicksand-Bold",fontSize:24,color:"rgb(8,54,3)"}}> My Profile</Text>
+      </View>
+      <ImageBackground 
+      source = {require('./assets/images/ProfileBackground.png')} 
+      style ={styles.ProfileContainer}>
+        <Image 
+        source = {require('./assets/images/UserProfile.png')}
+        style = {{width:95,height:95,position:"absolute",top:50,left:144}}
+        ></Image>
+        <Image
+        source = {require('./assets/images/Fix.png')}
+        style = {{position:"absolute",top:122,left:208}}>
+
+        </Image>
+        <Text style = {{position:"absolute",top:170,left:132,fontFamily:"Quicksand-Bold",fontSize:22,color:"rgb(11,61,31)"}}>Zella Hope</Text>
+      </ImageBackground>
+      <View style = {{flexDirection:"row"}}>
+        <ImageBackground
+        source ={require('./assets/images/Task.jpg')}
+        style = {{width:100,height:80,position:"absolute",right:67,top:250}}
+        ></ImageBackground>
+        <ImageBackground
+        source ={require('./assets/images/Star.jpg')} 
+        style = {{width:100,height:80,position:"absolute",right:-47,top:250}}></ImageBackground>
+        <ImageBackground
+        source = {require('./assets/images/Days.jpg')}
+        style = {{width:100,height:80,position:"absolute",right:-167,top:250}}></ImageBackground>
+      </View>
+      <View style = {{position:"absolute",top:269,left:60}} >
+        <Text style = {{fontFamily:"Quicksand-Bold",fontSize:24,color:"rgb(8,54,3)"}}>6</Text>
+        <Text style = {{fontFamily:"Quicksand-Bold",fontSize:12,color:"rgba(0,0,0,0.65)"}}>Tasks</Text>
+      </View>
+      <View style = {{position:"absolute",top:269,left:175}} >
+        <Text style = {{fontFamily:"Quicksand-Bold",fontSize:24,color:"rgb(8,54,3)"}}>20</Text>
+        <Text style = {{fontFamily:"Quicksand-Bold",fontSize:12,color:"rgba(0,0,0,0.65)"}}>Stars</Text>
+      </View>
+      <View style = {{position:"absolute",top:269,left:295}} >
+        <Text style = {{fontFamily:"Quicksand-Bold",fontSize:24,color:"rgb(8,54,3)"}}>35</Text>
+        <Text style = {{fontFamily:"Quicksand-Bold",fontSize:12,color:"rgba(0,0,0,0.65)"}}>Days</Text>
+      </View>
+      <View style = {{flexDirection:"row"}}>
+        <Text style = {{position:"absolute",left:-140,top:354,fontFamily:"Quicksand-Bold",fontSize:16,color:"rgb(11,61,31)"}}>Name</Text>
+        <Text style = {{position:"absolute",left:60,top:354,fontFamily:"Quicksand-Bold",fontSize:16,color:"rgb(11,61,31)",textAlign:"right"}}>Zella Hope</Text>
+      </View>
+      <View style = {{flexDirection:"row"}}>
+        <Text style = {{position:"absolute",left:-140,top:394,fontFamily:"Quicksand-Bold",fontSize:16,color:"rgb(11,61,31)"}}>AccountNumber</Text>
+        <Text style = {{position:"absolute",left:60,top:393,fontFamily:"Quicksand-Bold",fontSize:16,color:"rgb(11,61,31)",textAlign:"right"}}>123456</Text>
+      </View>
+      <View style = {{flexDirection:"row"}}>
+        <Text style = {{position:"absolute",left:-140,top:434,fontFamily:"Quicksand-Bold",fontSize:16,color:"rgb(11,61,31)"}}>Reset Password</Text>
+        <View style = {styles.iconTo}></View>
+      </View>
+      <View style = {{flexDirection:"row"}}>
+        <Text style = {{position:"absolute",left:-140,top:474,fontFamily:"Quicksand-Bold",fontSize:16,color:"rgb(11,61,31)"}}>Group ID</Text>
+        <Text style = {{position:"absolute",left:60,top:474,fontFamily:"Quicksand-Bold",fontSize:16,color:"rgb(11,61,31)",textAlign:"right"}}>54321</Text>
+      </View>
+      <ImageBackground
+      source = {require('./assets/images/ProfileSignout.jpg')}
+      style = {{width:310,height:48,position:"absolute",top:520,left:32,right:33}}></ImageBackground>
+      <View>
+        <Text style={{fontFamily:"Quicksand-Bold",color:"rgb(124,174,99)",fontSize:16,position:"absolute",top:530,left:-35}}>
+          Sign Out
+        </Text>
+      </View>
+    </View>
+  )
+};
+const Reset= ({route, navigation}) =>{
+  /*重置密码页*/
+  const [currentPassword, setCurrentPassword] = useState('');
+  const[newPassword,setNewPassword] = useState('');
+  const[confirmNewPassword,setConfirmNewPassword] = useState('');
+  const user={
+    currentPassword: currentPassword,
+    newPassword:newPassword,
+    confirmNewPassword: confirmNewPassword,
+  };
+  return(
+    <View style = {styles.container}>
+      <Image
+      source ={require('./assets/images/ProfileButton.jpg')}
+      style = {{width:20,height:50,position:"absolute",left:27,top:30}}></Image>
+      <View style = {{position:"absolute",top:36,left:96}}>
+        <Text style = {{fontFamily:"Quicksand-Bold",fontSize:24,color:"rgb(8,54,3)"}}>Reset Password</Text>
+      </View>
+      <View style ={{position:"absolute",top:117,left:90}}>
+        <Text style={{fontSize:16,fontFamily:"Quicksand-Bold",color:"rgb(11,61,31)"}}>Current Password</Text>
+          <TextInput 
+          style={{height: 19,width:152,position:'absolute',top:30,borderBottomColor:'rgb(141,164,104)',borderBottomWidth:1}}
+          placeholder= "currentPassword"
+          onChangeText={currentPassword => setCurrentPassword(currentPassword)}>
+          </TextInput>
+        </View>
+        <View style ={{position:"absolute",top:221,left:90}}>
+        <Text style={{fontSize:16,fontFamily:"Quicksand-Bold",color:"rgb(11,61,31)"}}>New Password</Text>
+          <TextInput 
+          style={{height: 19,width:152,position:'absolute',top:30,borderBottomColor:'rgb(141,164,104)',borderBottomWidth:1}}
+          placeholder= "newPassword"
+          onChangeText={newPassword => setNewPassword(newPassword)}>
+          </TextInput>
+        </View>
+        <View style ={{position:"absolute",top:325,left:90}}>
+        <Text style={{fontSize:16,fontFamily:"Quicksand-Bold",color:"rgb(11,61,31)"}}>Confirm New Password</Text>
+          <TextInput 
+          style={{height: 19,width:152,position:'absolute',top:30,borderBottomColor:'rgb(141,164,104)',borderBottomWidth:1}}
+          placeholder= "confirmNewPassword"
+          onChangeText={confirmNewPassword => setConfirmNewPassword(confirmNewPassword)}>
+          </TextInput>
+        </View>
+        <ImageBackground
+        source = {require('./assets/images/ResetButton.jpg')}
+        style = {{width:310,height:48,position:"absolute",top:439,left:32,right:33}}></ImageBackground>
+        <View>
+          <Text style={{fontFamily:"Quicksand-Bold",color:"rgb(246,173,31)",fontSize:16,position:"absolute",top:450,left:-67}}>Update Password</Text>
+        </View>
+        
+    </View>
+  )
+};
+const ResetDone= ({route, navigation}) =>{
+  /*重置密码显示成功*/
+  return(
+  <View style = {styles.container}>
+    <Image
+      source ={require('./assets/images/ProfileButton.jpg')}
+      style = {{width:20,height:50,position:"absolute",left:27,top:30}}></Image>
+    <View style = {{position:"absolute",top:36,left:96}}>
+      <Text style = {{fontFamily:"Quicksand-Bold",fontSize:24,color:"rgb(8,54,3)"}}>Reset Password</Text>
+    </View>
+    <Image
+    source ={require('./assets/images/ResetDone.png')}
+    style ={{width:258,height:331,position:"absolute",top:88,left:66}}></Image>
+    <View style = {{position:"absolute",top:435,left:96}}>
+      <Text style = {{fontFamily:"Quicksand-Bold",fontSize:24,color:"rgb(8,54,3)"}}>Password Reset</Text>
+    </View>
+    <View style = {{position:"absolute",top:470,left:69}}>
+      <Text style = {{fontFamily:"Quicksand-Bold",fontSize:12,color:"rgb(0,0,0)",fontWeight:"100"}}>
+      Your password has been resut successfully
+      </Text>
+    </View>
+    <ImageBackground
+    source = {require('./assets/images/ResetButton.jpg')}
+    style = {{width:310,height:48,position:"absolute",top:528,left:32,right:33}}></ImageBackground>
+    <View>
+      <Text style={{fontFamily:"Quicksand-Bold",color:"rgb(246,173,31)",fontSize:16,position:"absolute",top:540,left:-62}}>Back to Profile</Text>
+    </View>
+        
+  </View>
+  )
 }
 
-const Stack = createStackNavigator();
-const Tab = createBottomTabNavigator();
 
-function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} options={{ title: 'Login' }}/>
-        <Stack.Screen name="HelloUser" component={AfterLogin} options={{ title: 'Hello'}} />
-        <Stack.Screen name="TaskList" component={TaskList} options={{ title: 'TaskList'}} />  
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
+const styles = StyleSheet.create ({
+  container:{
+    width:375,
+    height: 637,
+    paddingRight: 0,
+    paddingLeft: 0,
+    left: 0,
+    right: 0,
+    marginLeft: 0,
+    marginRight: 0,
+    flex: 1,
+    flexDirection: "row",
+    top: 30,
+    justifyContent: "center"
+  },
+  
+  SecondContainer:{
+    flex: 1,
+    flexDirection: "row",
+    resizeMode: "cover",
+    justifyContent: "center"
+  },
+  thirdContainer:{
+    flex: 1,
+    position:"absolute",
+    top:275,
+    width:375,
+    height:412,
+    flexDirection:"row"
+  },
+  Button:{
+    position:"absolute",
+    top:265,
+    left:131,
+    width:104,
+    height:104,
+  },
+  ProfileContainer:{
+    flex:1,
+    position:"absolute",
+    top:50,
+    width:375,
+    height:187.2
+  },
+  iconTo:{
+    position:"absolute",
+    top:434,
+    left:150,
+    width: 10,
+	  height: 10,
+	  borderColor:'#666',
+	  borderTopWidth:2,
+	  borderRightWidth:2,
+	  transform:[{rotate: '45deg'}],
+  }
 
-function App1() {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Login" component={Login} />
-        <Tab.Screen name="HelloUser" component={AfterLogin} />
-        <Tab.Screen name="TaskList" component={TaskList} />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
-}
+})
 
-export default App1;
+export default MyProfile
+
+
